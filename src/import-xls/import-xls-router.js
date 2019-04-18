@@ -1,8 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const Router = express.Router();
 
 const importXlsController = require('./import-xls-controller');
 
-router.post('/', importXlsController.impotarXls);
+Router.post('/', importXlsController.importXls);
 
-module.exports = router;
+module.exports = Router;
