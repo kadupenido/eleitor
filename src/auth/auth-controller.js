@@ -7,7 +7,7 @@ const AuthService = require('./auth-service');
  */
 function authenticate(req, res) {
     try {
-        AuthService.generateToken(req.body.login, req.body.senha)
+        AuthService.generateToken(req.body.user, req.body.password)
             .then(resToken => {
                 res.status(200).send(resToken);
             }, err => {

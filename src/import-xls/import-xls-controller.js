@@ -55,9 +55,21 @@ function importXls(req, res) {
 
             var cursos = [];
 
-            if (row[25]) cursos.push(row[25]);
-            if (row[26]) cursos.push(row[26]);
-            if (row[27]) cursos.push(row[27]);
+            if (row[25]) {
+                var curso = {};
+                curso.nome = row[25];
+                cursos.push(curso);
+            }
+            if (row[26]) {
+                var curso = {};
+                curso.nome = row[26];
+                cursos.push(curso);
+            }
+            if (row[27]) {
+                var curso = {};
+                curso.nome = row[27];
+                cursos.push(curso);
+            }
 
             voter.curso = cursos;
 
@@ -104,7 +116,7 @@ function importXls(req, res) {
             voters.push(voter);
         }
 
-        Voter.collection.insertMany(eleitores, (err, result) => {
+        Voter.collection.insertMany(voters, (err, result) => {
             if (err) {
                 res.status(400).send(err);
             } else {

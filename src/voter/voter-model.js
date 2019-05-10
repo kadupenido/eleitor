@@ -5,8 +5,12 @@ const Schema = mongoose.Schema;
 const ExperienciaSchema = new Schema({
     empresa: String,
     funcao: String,
-    inicio: Date,
-    fim: Date
+    inicio: String,
+    fim: String
+});
+
+const CursoSchema = new Schema({
+    nome: String
 });
 
 const VoterSchema = new Schema({
@@ -16,7 +20,7 @@ const VoterSchema = new Schema({
     },
     cpf: String,
     rg: String,
-    nascimento: Date,
+    nascimento: String,
     sexo: {
         type: String,
         enum: ['Masculino', 'Feminino']
@@ -27,29 +31,29 @@ const VoterSchema = new Schema({
     },
     nacionalidade: String,
     naturalidade: String,
-    titulo: Number,
-    zona: Number,
-    secao: Number,
+    titulo: String,
+    zona: String,
+    secao: String,
     referencia: String,
     responsavel: String,
     endereco: String,
-    numero: Number,
+    numero: String,
     complemento: String,
     bairro: String,
     municipio: String,
     uf: String,
-    telefone: Number,
-    celular: Number,
+    telefone: String,
+    celular: String,
     email: String,
-    cnh: Number,
+    cnh: String,
     escolaridade: String,
-    curso: [String],
+    curso: [CursoSchema],
     experiencia: [ExperienciaSchema],
     obs: String
 });
 
 VoterSchema.virtual('idade').get(() => {
-
+    return 0;
     if (!this.nascimento) {
         return 0;
     }
