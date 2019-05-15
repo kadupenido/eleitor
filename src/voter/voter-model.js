@@ -83,7 +83,7 @@ VoterSchema.virtual('enderecoCompleto').get(function () {
         endereco += ', ' + this.numero;
 
         if (this.complemento) {
-            endereco += ', ' + complemento;
+            endereco += ', ' + this.complemento;
         }
 
         endereco += ', ' + this.bairro + '. ';
@@ -92,7 +92,25 @@ VoterSchema.virtual('enderecoCompleto').get(function () {
         return endereco;
 
     } catch (err) {
-        return 0;
+        return "";
+    }
+});
+
+VoterSchema.virtual('telefones').get(function () {
+    try {
+
+        let telefones = this.telefone;
+
+        if (telefones != "" && this.celular != "") {
+            telefones += " / ";
+        }
+
+        telefones += this.celular;
+
+        return telefones;
+
+    } catch (err) {
+        return "";
     }
 });
 
