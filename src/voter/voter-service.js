@@ -12,13 +12,30 @@ function getVoters(filters, page, sort) {
 
     if (filters) {
 
-        if (filters.nome) {
+        if (filters.nome && filters.nome != "") {
             query.nome = { $regex: `.*${filters.nome}.*`, $options: ' i' };
         }
 
-        if (filters.sexo) {
+        if (filters.cpf && filters.cpf != "") {
+            query.cpf = { $regex: `.*${filters.cpf}.*`, $options: ' i' };
+        }
+
+        if (filters.sexo && filters.sexo != "") {
             query.sexo = filters.sexo;
         }
+
+        if (filters.curso && filters.curso != "") {
+            query.sexo = filters.sexo;
+        }
+
+        if (filters.bairro && filters.bairro != "") {
+            query.bairro = { $regex: `.*${filters.bairro}.*`, $options: ' i' };
+        }
+
+        if (filters.municipio && filters.municipio != "") {
+            query.municipio = { $regex: `.*${filters.municipio}.*`, $options: ' i' };
+        }
+
     }
 
     var options = {

@@ -50,18 +50,50 @@ const VoterSchema = new Schema({
     curso: [CursoSchema],
     experiencia: [ExperienciaSchema],
     obs: String
-});
+}, {
+        toJSON: {
+            virtuals: true
+        }
+    });
 
-VoterSchema.virtual('idade').get(() => {
-    return 0;
-    if (!this.nascimento) {
+VoterSchema.virtual('idade').get(function () {
+    try {
+
+        if (!this.nascimento) {
+            return 0;
+        }
+
+        var idadeArr = this.nascimento.split('/');
+        var nascimento = new Date(idadeArr[2], idadeArr[1], idadeArr[0]);
+
+        var ageDifMs = Date.now() - nascimento.getTime();
+        var ageDate = new Date(ageDifMs);
+
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    } catch (err) {
         return 0;
     }
+});
 
-    var ageDifMs = Date.now() - this.nascimento.getTime();
-    var ageDate = new Date(ageDifMs);
+VoterSchema.virtual('enderecoCompleto').get(function () {
+    try {
 
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+        let endereco = this.endereco;
+        endereco += ', ' + this.numero;
+
+        if (this.complemento) {
+            endereco += ', ' + complemento;
+        }
+
+        endereco += ', ' + this.bairro + '. ';
+        endereco += this.municipio + ' / ' + this.uf;
+
+        return endereco;
+
+    } catch (err) {
+        return 0;
+    }
 });
 
 VoterSchema.plugin(mongoosePaginate);
