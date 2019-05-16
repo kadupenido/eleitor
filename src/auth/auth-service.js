@@ -11,7 +11,7 @@ function generateToken(userName, password) {
 
     return UserService.getUser(userName, password).then(user => {
         if (user) {
-            const token = jwt.sign({ id: user.id }, config.PRIVATE_KEY, { expiresIn: '1d' });
+            const token = jwt.sign({ id: user.id }, config.PRIVATE_KEY, { expiresIn: '7d' });
 
             return {
                 success: true,
