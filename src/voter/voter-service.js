@@ -25,7 +25,11 @@ function getVoters(filters, page, sort) {
         }
 
         if (filters.curso && filters.curso != "") {
-            query.sexo = filters.sexo;
+            query.curso = {
+                $elemMatch: {
+                    nome: { $regex: `.*${filters.curso}.*`, $options: ' i' }
+                }
+            };
         }
 
         if (filters.bairro && filters.bairro != "") {
